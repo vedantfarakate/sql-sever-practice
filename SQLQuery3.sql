@@ -111,6 +111,7 @@ SELECT * FROM  EMP;
 ALTER TABLE EMP
 ADD CHECK (score >= 10);
 
+-- Use of this
 SELECT 
 country,
 LEN (country) le

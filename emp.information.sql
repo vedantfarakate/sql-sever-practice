@@ -47,3 +47,5 @@ emp_id,
 SUM (emp_city)
 FROM employee_info
 GROUP BY emp_id;
+
+

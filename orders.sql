@@ -31,6 +31,7 @@ CREATE TABLE ordersArchive (
     salespersonID INT,
     orderDATE DATE,
     shipDATE DATE
+
 );
 INSERT INTO ordersArchive (orderID, productID, customerID, salespersonID, orderDATE, shipDATE)
 VALUES
@@ -40,10 +41,20 @@ VALUES
 (4, 404, 104, 204, '2024-08-05', '2024-08-10'),
 (5, 405, 105, 205, '2024-09-12', '2024-09-17');
 
-SELECT * FROM salesOrder
+SELECT * FROM salesOrder;
 SELECT * FROM ordersArchive
 
 UPDATE salesOrder
 SET salespersonID='205'
 WHERE orderID=5;
+
+SELECT *
+FROM salesOrder
+WHERE DAY(orderDATE) =5;
+
+--USE alter table order archive and add foregin key
+ALTER TABLE ordersArchive
+ADD CONSTRAINT fk_dept
+FOREIGN KEY (dept_id) REFERENCES departments(dept_id);
+
 

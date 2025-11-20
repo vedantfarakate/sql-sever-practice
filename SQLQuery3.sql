@@ -112,7 +112,91 @@ ALTER TABLE EMP
 ADD CHECK (score >= 10);
 
 -- Use of this
+
 SELECT 
 country,
 LEN (country) le
- FROM EMP
+ FROM EMP;
+
+SELECT 
+country,
+SUM(score) AS score
+FROM EMP
+GROUP BY country
+HAVING AVG (score) >= 500;
+
+-- case statment
+
+SELECT 
+    salary,
+    CASE 
+        WHEN salary > 50000 THEN 'High'
+        ELSE 'Low'
+    END AS salarylevel
+FROM staff;
+
+SELECT 
+score,
+  CASE 
+     WHEN score >=500 THEN 'sharp'
+     ELSE 'mediam'
+END scorerenge
+FROM EMP;
+
+-- use case statement
+
+SELECT 
+salary,
+CASE
+    WHEN salary > 55000 THEN 'High'
+    WHEN salary > 45000 THEN 'Medium'
+    ELSE 'Low'
+END
+FROM staff;
+
+SELECT * FROM staff;
+
+SELECT
+    salary,
+    CASE
+      WHEN salary > 55000 THEN 'highsalary'
+      WHEN salary  >30000 THEN 'low'
+       ELSE 'mediam'
+END AS score
+FROM staff;
+      
+
+     SELECT
+     salary,
+       CASE 
+       WHEN salary >55000 THEN 'high'
+       WHEN salary >45000 THEN 'mediam'
+       ELSE 'Low'
+    END AS category
+   FROM staff;
+
+
+   SELECT 
+   first_name,
+   last_name,
+   department,
+    CASE 
+       WHEN department ='IT' THEN 'y'
+       WHEN department ='HR' THEN 'u'
+       ELSE 'n/a'
+       END  departmentabr
+       FROM staff;
+
+       SELECT DISTINCT department
+       FROM staff;
+
+   SELECT 
+   first_name,
+   last_name,
+   department,
+    CASE department
+       WHEN 'IT' THEN 'y'
+       WHEN 'HR' THEN 'u'
+       ELSE 'n/a'
+       END  departmentabr
+       FROM staff;

@@ -200,3 +200,46 @@ FROM staff;
        ELSE 'n/a'
        END  departmentabr
        FROM staff;
+
+
+       
+SELECT * FROM staff
+SELECT * FROM EMP
+ 
+SELECT
+frist_name,
+department,
+country,
+score
+FROM staff AS s
+INNER JOIN EMP  AS e
+ON s.id = e.id;
+
+--USE groupping
+SELECT 
+country,
+COUNT(*), 
+SUM (score) AS score 
+FROM EMP
+WHERE score !=850
+GROUP BY country
+HAVING MIN (score) >500;
+
+SELECT 
+country,
+COUNT (*) AS score,
+SUM (score) AS score
+FROM EMP
+GROUP BY country
+HAVING MAX (score) >800;
+
+--window funcation
+SELECT 
+id,
+country,
+SUM (score) OVER (PARTITION BY id) AS score
+FROM EMP;
+
+--META DATA
+SELECT *
+FROM INFORMATION_SCHEMA.COLUMNS

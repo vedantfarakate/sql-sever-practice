@@ -41,13 +41,29 @@ VALUES
 SELECT * FROM salesman
 SELECT * FROM customer
 
-SELECT c.customer_name, c.city, s.name AS salesmanName, s.commission
-FROM customer c
-JOIN salesman s
-ON c.salesman_id = s.salesman_id;
+--Intermediate Level (JOIN) Answers
 
+SELECT c.customer_id,s.name,c.customer_name
+FROM salesman AS s
+JOIN customer AS c
+ON s.salesman_id = c.salesman_id;
 
-SELECT c.customer_name, s.name AS salesman
-FROM customer c
-JOIN salesman s 
-ON c.salesman_id = s.salesman_id;
+CREATE TABLE orders(
+order_no INT PRIMARY KEY,
+purch_amt DECIMAL(5,2),
+order_date DATE,
+customer_id INT,
+salesman_id INT
+FOREIGN KEY (customer_id) REFERENCES customer (customer_id),
+FOREIGN KEY (salesman_id) REFERENCES salesman (salesman_id)
+);
+
+INSERT INTO orders(order_no,purch_amt,order_date,customer_id,salesman_id)
+VALUES
+(70001, 150.50, '2021-10-05', 3005, 5002),
+(70002, 65.26, '2021-10-05', 3002, 5001),
+(70003, 248.60, '2021-10-10', 3001, 5002),
+(70004, 110.50, '2021-10-17', 3004, 5006),
+(70005, 948.50, '2021-10-25', 3003, 5005);
+
+SELECT * FROM orders;

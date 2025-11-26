@@ -252,3 +252,11 @@ score,
 (score) 
 FROM EMP
 GROUP BY id,score;
+
+-- use views
+
+CREATE VIEW emp_view AS
+SELECT country,
+score
+FROM EMP;
+

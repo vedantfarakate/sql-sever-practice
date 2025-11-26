@@ -67,3 +67,29 @@ VALUES
 (70005, 948.50, '2021-10-25', 3003, 5005);
 
 SELECT * FROM orders;
+
+
+SELECT s.name,s.city,c.customer_name,c.grade
+FROM salesman AS s
+JOIN customer AS c
+ON s.salesman_id = c.salesman_id ;
+
+CREATE VIEW sales AS
+SELECT name,city
+FROM salesman 
+
+
+SELECT * FROM sales;
+DROP VIEW sales;
+
+
+---USE VIEW 
+CREATE VIEW view_sales AS
+(
+SELECT 
+COUNT(*) AS city,
+SUM (grade) AS grade
+FROM customer
+GROUP BY city;
+);
+

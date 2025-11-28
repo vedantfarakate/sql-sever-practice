@@ -93,3 +93,71 @@ FROM customer
 GROUP BY city;
 );
 
+-------------------------------------
+
+CREATE VIEW true AS 
+SELECT
+customer_name,
+city,
+CASE 
+ WHEN city= 'paris' THEN 'true'
+ WHEN city= 'londan' THEN 'true'
+ ELSE 'false'
+ END
+ FROM customer;
+
+ CREATE VIEW abcd AS 
+ SELECT 
+ customer_name,
+ city
+ FROM customer;
+
+CREATE VIEW citytotalgrade AS
+ SELECT
+ city,
+ COUNT (*) AS total,
+ AVG (grade) AS grade 
+ FROM customer
+ GROUP BY city;
+
+ DROP VIEW view_sales;
+
+ ---use procedure 
+ CREATE PROCEDURE orderamt AS
+ BEGIN 
+ SELECT 
+ order_no,
+ MAX (purch_amt) AS amt
+ FROM orders
+ GROUP BY order_no
+ ORDER BY amt DESC
+ END;
+
+ EXEC orderamt;
+
+ CREATE PROCEDURE custocitygrade 
+ @city VARCHAR (30) --- input parameter
+ AS
+ BEGIN 
+ SELECT 
+ COUNT(*) AS CITY,
+ AVG (grade) AS grade
+ FROM customer
+ WHERE city =@city
+ END;
+
+ EXEC custocitygrade @city ='paris'
+
+CREATE PROCEDURE citygrade 
+@city VARCHAR (30),
+@grade INT
+AS 
+BEGIN
+ SELECT * FROM customer
+ WHERE city = @city
+  AND grade =@grade
+  END;
+  
+EXEC citygrade @city= 'landan',@grade='200';
+
+DROP PROCEDURE citygrade 

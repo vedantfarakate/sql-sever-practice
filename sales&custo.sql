@@ -40,6 +40,7 @@ VALUES
 
 SELECT * FROM salesman
 SELECT * FROM customer
+SELECT * FROM orders;
 
 --Intermediate Level (JOIN) Answers
 
@@ -148,16 +149,68 @@ CREATE VIEW citytotalgrade AS
 
  EXEC custocitygrade @city ='paris'
 
-CREATE PROCEDURE citygrade 
-@city VARCHAR (30),
-@grade INT
+CREATE PROCEDURE prtable
+@city VARCHAR (30)
 AS 
 BEGIN
- SELECT * FROM customer
- WHERE city = @city
-  AND grade =@grade
+ SELECT 
+ COUNT (*),
+ AVG (grade)
+ FROM customer
+ WHERE city = @city;
+
+ SELECT 
+city,
+COUNT (city) AS city,
+SUM (grade) AS grade
+FROM customer AS c
+JOIN orders AS o
+ON c.customer_id = o.customer_id
+WHERE city = @city
+GROUP BY city;
   END;
-  
-EXEC citygrade @city= 'landan',@grade='200';
+
+
+ 
+ EXEC prtable
+EXEC prtable @city= 'paris';
 
 DROP PROCEDURE citygrade 
+
+
+SELECT * FROM salesman
+SELECT * FROM customer
+SELECT * FROM orders;
+
+CREATE PROCEDURE images @city VARCHAR (30) AS
+BEGIN 
+SELECT * FROM customer
+WHERE city = @city;
+
+SELECT 
+city,
+COUNT (*) AS total,
+SUM (grade) AS grade 
+FROM customer
+GROUP BY city
+HAVING MAX (grade) ='300';
+END;
+
+EXEC images @city='rome'
+
+EXEC images @city ='landan'
+
+
+CREATE PROCEDURE thelarge
+@name VARCHAR (30),
+@city VARCHAR(30)
+AS
+BEGIN 
+SELECT * FROM salesman
+WHERE name = @name
+AND city=@city;
+END;
+
+EXEC thelarge @name='james Hoog',@city='New York';
+
+DROP PROCEDURE checkname

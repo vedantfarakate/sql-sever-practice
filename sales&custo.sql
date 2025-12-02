@@ -39,7 +39,7 @@ VALUES
 
 
 SELECT * FROM salesman
-SELECT * FROM customer
+
 SELECT * FROM orders;
 
 --Intermediate Level (JOIN) Answers
@@ -182,7 +182,9 @@ SELECT * FROM salesman
 SELECT * FROM customer
 SELECT * FROM orders;
 
-CREATE PROCEDURE images @city VARCHAR (30) AS
+
+CREATE PROCEDURE images 
+@city VARCHAR (30) AS
 BEGIN 
 SELECT * FROM customer
 WHERE city = @city;
@@ -213,4 +215,17 @@ END;
 
 EXEC thelarge @name='james Hoog',@city='New York';
 
-DROP PROCEDURE checkname
+DROP PROCEDURE insert_value
+
+
+
+CREATE PROCEDURE insert_value @customer_name VARCHAR (30),
+@city VARCHAR (30),
+@grade INT
+AS
+BEGIN
+INSERT INTO insert_value ('customer_name','city','grade')
+VALUES ('@customer_name','@city','@grade')
+END;
+
+EXEC insert_value 'john paul','paris','200';

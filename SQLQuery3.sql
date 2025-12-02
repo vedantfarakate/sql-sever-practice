@@ -14,8 +14,8 @@ VALUES
 (2,'Emma', 'Watson', 'IT', 60000),
 (3,'Raj', 'Patel', 'Finance', 55000),
 (4,'kiran','yadav','HR',45000),
-(5,'pranav','mohite','Finance',30000)
-(6,'manoj','patil','IT',40000)
+(5,'pranav','mohite','Finance',30000),
+(6,'manoj','patil','IT',40000),
 (7,'pranav','ranmale','manger',70000);
  SELECT * FROM staff;
 
@@ -259,4 +259,136 @@ CREATE VIEW emp_view AS
 SELECT country,
 score
 FROM EMP;
+ 
 
+
+
+
+DELETE staff
+WHERE last_name ='yadav';
+
+ TRUNCATE TABLE staff;
+
+
+ UPDATE staff
+ SET last_name ='olly'
+ WHERE id =1;
+
+ SELECT * FROM  staff
+ WHERE salary = '50000' AND department='HR';
+
+ SELECT * FROM staff
+ WHERE salary =50000 OR department='IT';
+
+ SELECT * FROM staff
+ WHERE NOT salary =60000;
+
+ SELECT * FROM staff
+ WHERE salary BETWEEN 40000 AND 55000;
+
+ SELECT * FROM staff
+ WHERE salary IN ('40000','55000');
+
+ SELECT * FROM staff
+ WHERE department like 'f%'
+
+ SELECT 
+ first_name,
+department,
+CONCAT (first_name,' ',department)
+ FROM staff;
+
+ --return all customer and avrage salary from 'HR'
+ SELECT
+ COUNT(*) AS totalcusto,
+ AVG (salary) avg_salary
+ FROM staff
+ WHERE department ='HR';
+
+ ---turning the query into a store procedure
+
+CREATE PROCEDURE custo AS 
+BEGIN 
+ SELECT
+ COUNT(*) AS totalcusto,
+ AVG (salary) avg_salary
+ FROM staff
+ WHERE department ='HR';
+ END;
+
+EXEC custo;
+
+--store procedure example
+CREATE PROCEDURE employee AS
+BEGIN 
+SELECT * FROM staff
+END;
+
+EXEC employee;
+
+CREATE PROCEDURE manger AS 
+BEGIN 
+SELECT 
+COUNT (*) AS total, 
+AVG (salary) AS salary
+FROM staff
+WHERE department= 'manger'
+END;
+
+DROP PROCEDURE manger;
+
+--singel row parameter
+
+CREATE PROCEDURE singelrow 
+@department VARCHAR(30)
+AS
+BEGIN 
+SELECT * FROM staff
+WHERE department= @department
+END;
+
+EXEC singelrow @department ='IT'
+
+--multiple row parameter
+ALTER PROCEDURE multiplerow
+@first_name VARCHAR(30),
+@last_name  VARCHAR(30)
+WITH ENCRYPTION
+AS
+BEGIN 
+SELECT * FROM staff
+WHERE first_name =@first_name
+AND last_name= @last_name
+END;
+
+EXEC multiplerow 'john','olly'
+
+---returenqueryview
+SP_HELPTEXT multiplerow
+
+--UPDATE procedure 
+CREATE PROCEDURE updatesatff
+@id INT,
+@department VARCHAR(30)
+AS
+BEGIN 
+  UPDATE staff
+  SET department= @department
+  WHERE id= @id
+  END;
+
+  EXEC updatesatff 1,'HR';
+
+  SELECT * FROM staff;
+
+-- USE delete procedure 
+  CREATE PROCEDURE deletestaff
+  @id INT
+  AS
+  BEGIN
+     DELETE staff
+     WHERE id=@id
+    END;
+
+
+    EXEC deletestaff 1;
